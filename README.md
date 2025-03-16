@@ -7,7 +7,7 @@
 
 A real-time data processing pipeline that analyzes sentiment from Twitter data. This project demonstrates modern data engineering practices by building a complete system that ingests, processes, stores, and visualizes tweet data with sentiment analysis.
 
-![Dashboard Preview](https://via.placeholder.com/800x400?text=Dashboard+Preview)
+![Dashboard's Snapshot](data/Dashboard_snapshot.png)
 
 ## 🌟 Features
 
