@@ -1,0 +1,27 @@
+# Data processing
+pandas==2.1.1
+numpy==1.26.0
+
+# Natural Language Processing
+nltk==3.8.1
+textblob==0.17.1
+
+# Data streaming
+kafka-python==2.0.2
+confluent-kafka==2.2.0
+
+# API and web
+fastapi==0.103.2
+uvicorn==0.23.2
+
+# Visualization
+plotly==5.17.0
+dash==2.13.0
+
+# Database
+sqlalchemy==2.0.21
+psycopg2-binary==2.9.9
+
+# Testing & utilities
+pytest==7.4.2
+python-dotenv==1.0.0

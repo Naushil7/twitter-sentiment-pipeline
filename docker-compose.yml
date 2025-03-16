@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  # Data Generator Service
+  tweet-generator:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.generator
+    volumes:
+      - ./data:/app/data
+    environment:
+      - TWEET_COUNT=1000
+      - TWEET_DELAY=2.0
+    restart: unless-stopped
+
+  # Sentiment Analysis Service
+  sentiment-analyzer:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.analyzer
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - tweet-generator
+    restart: unless-stopped
+
+  # API Service
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.api
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8000:8000"
+    depends_on:
+      - sentiment-analyzer
+    restart: unless-stopped
+
+  # Dashboard Service
+  dashboard:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.dashboard
+    ports:
+      - "8050:8050"
+    depends_on:
+      - api
+    restart: unless-stopped
