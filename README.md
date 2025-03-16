@@ -22,32 +22,19 @@ A real-time data processing pipeline that analyzes sentiment from Twitter data. 
 
 This project follows a microservices architecture pattern with four main components:
 
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│                 │    │                 │    │                 │    │                 │
-│ Tweet Generator │───▶│    Sentiment    │───▶│   REST API      │◀───│    Dashboard    │
-│                 │    │    Analyzer     │    │                 │    │                 │
-└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
-        │                      │                      │                      │
-        ▼                      ▼                      ▼                      ▼
-┌─────────────────────────────────────────────────────────────────────────────────────┐
-│                                   Shared Volume                                      │
-│                                                                                     │
-│                          ┌─────────────┐    ┌─────────────┐                         │
-│                          │    Raw      │    │  Processed  │                         │
-│                          │    Data     │    │    Data     │                         │
-│                          └─────────────┘    └─────────────┘                         │
-│                                                                                     │
-└─────────────────────────────────────────────────────────────────────────────────────┘
-```
-
 ```mermaid
-graph LR
-  A[Tweet Generator] --> B[Raw Data]
-  B --> C[Sentiment Analyzer]
-  C --> D[Processed Data]
-  D --> E[API]
-  E --> F[Dashboard]
+graph TD
+    A[Tweet Generator] -->|Saves| B[Raw Data]
+    A -->|Processes| C[Sentiment Analyzer]
+    C -->|Stores| D[Processed Data]
+    D -->|Serves| E[REST API]
+    E -->|Fetches| F[Dashboard]
+
+    %% Shared Volume Section
+    subgraph "Shared Volume"
+        B
+        D
+    end
 ```
 
 ### Components
