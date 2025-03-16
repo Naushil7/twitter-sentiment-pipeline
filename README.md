@@ -23,18 +23,31 @@ A real-time data processing pipeline that analyzes sentiment from Twitter data. 
 This project follows a microservices architecture pattern with four main components:
 
 ```mermaid
-graph TD
-    A[Tweet Generator] -->|Saves| B[Raw Data]
-    A -->|Processes| C[Sentiment Analyzer]
-    C -->|Stores| D[Processed Data]
-    D -->|Serves| E[REST API]
-    E -->|Fetches| F[Dashboard]
-
-    %% Shared Volume Section
-    subgraph "Shared Volume"
-        B
-        D
+flowchart TD
+    subgraph "Data Ingestion"
+        A[Tweet Generator] -->|Writes| B[(Raw Tweet Files)]
     end
+    
+    subgraph "Data Processing"
+        B -->|Reads| C[Sentiment Analyzer]
+        C -->|Writes| D[(Processed Tweet Files)]
+    end
+    
+    subgraph "Data Serving"
+        D -->|Reads| E[FastAPI Service]
+        E -->|Provides| F[REST Endpoints]
+    end
+    
+    subgraph "Data Visualization"
+        F -->|Consumes| G[Dash Dashboard]
+        G -->|Displays| H[Interactive Charts]
+        G -->|Shows| I[Tweet Table]
+    end
+    
+    style A fill:#4CAF50,stroke:#009688,color:white
+    style C fill:#2196F3,stroke:#0D47A1,color:white
+    style E fill:#FF9800,stroke:#E65100,color:white
+    style G fill:#9C27B0,stroke:#6A1B9A,color:white
 ```
 
 ### Components
