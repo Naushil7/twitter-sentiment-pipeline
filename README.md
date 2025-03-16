@@ -41,6 +41,15 @@ This project follows a microservices architecture pattern with four main compone
 └─────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+```mermaid
+graph LR
+  A[Tweet Generator] --> B[Raw Data]
+  B --> C[Sentiment Analyzer]
+  C --> D[Processed Data]
+  D --> E[API]
+  E --> F[Dashboard]
+```
+
 ### Components
 
 1. **Tweet Generator**
